@@ -1,0 +1,16 @@
+# Compiled binaries
+TypeU
+TypeUServer
+TypeU_GUI
+*.o
+*.out
+
+# Local models / logs
+brain.bin
+*.log
+
+# OS & Editor files
+.DS_Store
+.vscode/
+.idea/
+EOF
