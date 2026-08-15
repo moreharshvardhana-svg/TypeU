@@ -33,3 +33,31 @@
 1. **Clone or Download** this repository:
    ```bash
    git clone [https://github.com/yourusername/TypeU.git](https://github.com/yourusername/TypeU.git)
+   
+### 🚀 Getting Started
+
+1. **Open Extensions in Chrome:** Navigate to `chrome://extensions/` (or click `⋮` $\rightarrow$ **Extensions** $\rightarrow$ **Manage Extensions**).
+2. **Enable Developer Mode:** Toggle on **Developer mode** in the top-right corner.
+3. **Load the Extension:** Click **Load unpacked** and select the `TypeU/extension` directory.
+4. **Start Typing:** Open any text area across the web and start writing!
+
+---
+
+### 🛠️ Architecture
+
+* **Core Engine:** Written in modern C++20 featuring a multi-tier N-gram Markov model with asymptotic weight smoothing.
+* **WASM Runtime:** Compiled via Emscripten with zero dynamic execution (`DYNAMIC_EXECUTION=0`) for strict Manifest V3 Content Security Policy compliance.
+* **Binary Persistence:** Exports continuous model snapshots directly into `chrome.storage.local` without disk-write overhead.
+
+---
+
+### 👨‍💻 Author
+
+Built by **Nightbear**
+
+---
+
+### Why this version stands out
+
+* **Scannability:** Clear step-by-step installation instructions for immediate onboarding.
+* **Technical Credibility:** Highlights the C++20, WASM, and privacy-conscious Manifest V3 architecture.
