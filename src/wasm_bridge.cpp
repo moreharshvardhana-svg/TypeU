@@ -10,6 +10,42 @@ std::unordered_map<std::string, std::unordered_map<char, float>> moddata;
 const float maxWeight = 100.0f;
 const float smoothingVal = 50.0f;
 
+// Base64 helper for safe JS string persistence
+static const std::string b64_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+std::string base64_encode(const std::string& in) {
+    std::string out;
+    int val = 0, valb = -6;
+    for (unsigned char c : in) {
+        val = (val << 8) + c;
+        valb += 8;
+        while (valb >= 0) {
+            out.push_back(b64_table[(val >> valb) & 0x3F]);
+            valb -= 6;
+        }
+    }
+    if (valb > -6) out.push_back(b64_table[((val << 8) >> (valb + 8)) & 0x3F]);
+    while (out.size() % 4) out.push_back('=');
+    return out;
+}
+
+std::string base64_decode(const std::string& in) {
+    std::string out;
+    std::vector<int> T(256, -1);
+    for (int i = 0; i < 64; i++) T[b64_table[i]] = i;
+    int val = 0, valb = -8;
+    for (unsigned char c : in) {
+        if (T[c] == -1) break;
+        val = (val << 6) + T[c];
+        valb += 6;
+        if (valb >= 0) {
+            out.push_back(char((val >> valb) & 0xFF));
+            valb -= 8;
+        }
+    }
+    return out;
+}
+
 void trainModel(const std::string& inputData) {
     long len = inputData.length();
     for (int i = 0; i < len; i++) {
@@ -27,7 +63,6 @@ void trainModel(const std::string& inputData) {
     }
 }
 
-// Predict the next N words based on the prev word
 std::vector<std::string> predictNext(const std::string& inputDat, int n) {
     std::vector<std::string> suggestions;
     if (inputDat.empty() || moddata.empty()) return suggestions;
@@ -73,7 +108,6 @@ std::vector<std::string> predictNext(const std::string& inputDat, int n) {
     return suggestions;
 }
 
-//Binary Serialization in memory
 std::string exportBinaryState() {
     std::ostringstream ss(std::ios::binary);
     size_t map_size = moddata.size();
@@ -92,12 +126,15 @@ std::string exportBinaryState() {
             ss.write(reinterpret_cast<const char*>(&weight), sizeof(weight));
         }
     }
-    return ss.str();
+    return base64_encode(ss.str());
 }
 
 void importBinaryState(const std::string& data) {
     if (data.empty()) return;
-    std::istringstream ss(data, std::ios::binary);
+    std::string raw = base64_decode(data);
+    if (raw.empty()) return;
+
+    std::istringstream ss(raw, std::ios::binary);
     moddata.clear();
 
     size_t map_size = 0;
@@ -122,7 +159,6 @@ void importBinaryState(const std::string& data) {
     }
 }
 
-//Starting default parameters/text
 void initDefaults() {
     trainModel("The quick brown fox jumps over the lazy dog ");
     trainModel("May the force be with you ");
@@ -130,6 +166,7 @@ void initDefaults() {
     trainModel("The cake is a lie ");
     trainModel("Hello World! ");
 }
+
 EMSCRIPTEN_BINDINGS(typeu_wasm) {
     emscripten::register_vector<std::string>("VectorString");
     emscripten::function("trainModel", &trainModel);
