@@ -28,6 +28,20 @@ function persistState() {
 initEngine();
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+
+  if (request.type === "ClearHistory"){
+    if (typeu && typeu.clearModel){
+      typeu.clearModel();
+      
+      const defaultState = typeu.exportBinaryState();
+      chrome.storage.local.set({ typeu_brain: defaultState }, () => {
+        sendResponse({ success: true });
+      });
+    }
+    return true;
+  }
+  
+  
   if (!typeu) {
     sendResponse({ success: false, error: "Engine initializing" });
     return false;

@@ -32,7 +32,7 @@
 
 1. **Clone or Download** this repository:
    ```bash
-   git clone [https://github.com/yourusername/TypeU.git](https://github.com/yourusername/TypeU.git)
+   git clone [https://github.com/moreharshvardhana-svg/TypeU.git](https://github.com/moreharshvardhana-svg/TypeU.git)
    
 ### 🚀 Getting Started
 

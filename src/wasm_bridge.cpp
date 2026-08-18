@@ -167,6 +167,11 @@ void initDefaults() {
     trainModel("Hello World! ");
 }
 
+void clearModel() {
+    moddata.clear();
+    initDefaults();
+}
+
 EMSCRIPTEN_BINDINGS(typeu_wasm) {
     emscripten::register_vector<std::string>("VectorString");
     emscripten::function("trainModel", &trainModel);
@@ -174,4 +179,5 @@ EMSCRIPTEN_BINDINGS(typeu_wasm) {
     emscripten::function("initDefaults", &initDefaults);
     emscripten::function("exportBinaryState", &exportBinaryState);
     emscripten::function("importBinaryState", &importBinaryState);
+    emscripten::function("clearModel", &clearModel);
 }

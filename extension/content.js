@@ -131,10 +131,30 @@ function insertSuggestion(target, text) {
   }, 25);
 }
 
+let isEnabled = true;
+
+chrome.storage.local.get("isEnabled", (res) => {
+  if (res.isEnabled !== undefined) {
+    isEnabled = res.isEnabled;
+  }
+});
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (namespace === "local" && changes.isEnabled) {
+    isEnabled = changes.isEnabled.newValue;
+    if (!isEnabled) {
+      hideSuggestions();
+    }
+  }
+});
+
 function processTyping(target) {
+  
+  if (!isEnabled) return;
+  
   if (!isContextValid() || !target) return;
   activeTarget = target;
-
+    
   const { text: context, full: fullText } = extractContext(target);
 
   if (fullText.endsWith(" ")) {
@@ -220,3 +240,25 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("focusout", () => {
   setTimeout(hidePill, 150);
 }, true);
+
+let currentTheme = "light";
+
+chrome.storage.local.get("typeu_theme", (res) => {
+  if (res.typeu_theme) {
+    currentTheme = res.typeu_theme;
+    applyTheme();
+  }
+});
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (namespace === "local" && changes.typeu_theme) {
+    currentTheme = changes.typeu_theme.newValue;
+    applyTheme();
+  }
+});
+
+function applyTheme() {
+  const pill = document.getElementById("typeu-floating-pill");
+  if (!pill) return;
+  pill.classList.remove("theme-light", "theme-dark");
+  pill.classList.add(`theme-${currentTheme}`);
+}

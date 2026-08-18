@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TypeU</title>
+  <script src="menu.js" defer></script>
+  <style>
+    body {margin: 0;
+      padding: 20px 24px;
+      width: 140px;
+      background-color: #c5d1ce;
+      text-align: center;
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius:20px;
+      }
+    h1 {
+      font-size: 20px;
+    }
+    .row-container {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+    #toggle_typeU {
+      height: 30px;
+      width: 60px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #777;
+      padding: 2px;
+    }
+    #button_ball {
+      background-color: #ea200a;
+      border-radius: 50%;
+      height: 24px;
+      width: 24px;
+    }
+    #clearHistory{
+      padding:5px;
+      border-radius:40px;
+      border: 1px solid #777;
+    }
+    #deleteConfirmation{
+      padding:5px;
+      width:5px;
+      text-align:center;
+      border-radius:40px;
+      border: 1px solid #777;
+      transition: transform 0.25s ease-in,width 0.25s ease-in;
+      transform:translateY(-30px);
+    }
+    #deleteConfirmation.show {
+      width:140px;
+      transition: transform 0.25s ease-in,width 0.25s ease-in;
+      transform: translateY(0); 
+}
+#hide-confirmation {
+  overflow: hidden;      
+  height: 50px; 
+  position: relative;
+  margin-top: -10px;
+}
+#mode{
+  background-color:#1e1e1e;
+      padding:5px;
+      border-radius:40px;
+      border: 1px solid #777;
+  color:#ffffff;
+}
+  </style>
+</head>
+<body id="mainbody">
+  <div class="row-container">
+  <h1>TypeU</h1>
+  <button id="toggle_typeU">
+    <div id="button_ball"></div></div>
+  </button>
+  <p>Predictive Typing is <span id="status">Off</span>.<p>
+  <button id="clearHistory">Clear History</button>
+  <div id="hide-confirmation"><input placeholder="Type &quot;Clear&quot; to confirm" type="text" id="deleteConfirmation"></input>
+  </div>
+  <button id="mode">Light Mode</button>
+</body>
+</html>
