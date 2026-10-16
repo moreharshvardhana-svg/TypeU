@@ -63,6 +63,33 @@ void trainModel(const std::string& inputData) {
     }
 }
 
+void deleteData(const std::string& inputData){
+    long len = inputData.length();
+    for(int i= 0 ; i < len ; i++){
+        for (int a= 1 ;a < 5; a++){
+            if (i+a >= len) break;
+            std::string keyString = inputData.substr(i, a);
+            char keyChar = inputData[i + a];
+
+            if(moddata.contains(keyString) && moddata[keyString].contains(keyChar)){
+                moddata[keyString][keyChar]-= 5.0f;
+                if(moddata[keyString][keyChar] <=0.0f){
+                    moddata[keyString].erase(keyChar);
+                }
+            }
+        }
+    }
+
+    for(auto it =moddata.begin() ;it!= moddata.end();){
+        if(it->second.empty()){
+           it = moddata.erase(it);
+        }
+        else{
+          ++it;
+        }
+    }
+}
+
 std::vector<std::string> predictNext(const std::string& inputDat, int n) {
     std::vector<std::string> suggestions;
     if (inputDat.empty() || moddata.empty()) return suggestions;
@@ -180,4 +207,5 @@ EMSCRIPTEN_BINDINGS(typeu_wasm) {
     emscripten::function("exportBinaryState", &exportBinaryState);
     emscripten::function("importBinaryState", &importBinaryState);
     emscripten::function("clearModel", &clearModel);
+    emscripten::function("deleteData", &deleteData);
 }

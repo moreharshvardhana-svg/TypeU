@@ -1,12 +1,11 @@
 importScripts('typeu.js');
 
 let typeu = null;
-
 async function initEngine() {
   try {
     typeu = await createTypeU();
     console.log("[TypeU] WebAssembly engine initialized in Service Worker!");
-
+    
     const stored = await chrome.storage.local.get("brain_binary");
     if (stored && stored.brain_binary) {
       typeu.importBinaryState(stored.brain_binary);
@@ -46,7 +45,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({ success: false, error: "Engine initializing" });
     return false;
   }
-
   if (request.type === "predict") {
     const vec = typeu.predictNext(request.query, 3);
     const results = [];
@@ -64,4 +62,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({ success: true });
     return true;
   }
+ if (request.type === "removeword") {
+  const engine = typeof typeu !== "undefined" ? typeu : typeuWasm;
+
+  if (engine && engine.deleteData && request.query) {
+    engine.deleteData(request.query);
+    persistState();
+    sendResponse({ success: true });
+  } else {
+    console.error("Remove failed. Engine ready:", !!engine, "Query received:", request.query);
+    sendResponse({ success: false });
+  }
+  return true;
+}
 });

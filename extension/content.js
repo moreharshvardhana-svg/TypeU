@@ -8,12 +8,22 @@ function isContextValid() {
   return typeof chrome !== "undefined" && chrome.runtime && !!chrome.runtime.id;
 }
 
+let currentTheme;
+
+chrome.storage.local.get("typeu_theme", (res) => {
+  if (res.typeu_theme) {
+    currentTheme = res.typeu_theme;
+    applyTheme();
+  }
+});
+
 function createPill() {
   if (pill) return pill;
   pill = document.createElement("div");
   pill.id = "typeu-floating-pill";
   pill.style.display = "none";
   document.body.appendChild(pill);
+  pill.classList.add(`theme-${currentTheme}`);
   return pill;
 }
 
@@ -241,14 +251,7 @@ document.addEventListener("focusout", () => {
   setTimeout(hidePill, 150);
 }, true);
 
-let currentTheme = "light";
 
-chrome.storage.local.get("typeu_theme", (res) => {
-  if (res.typeu_theme) {
-    currentTheme = res.typeu_theme;
-    applyTheme();
-  }
-});
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === "local" && changes.typeu_theme) {
     currentTheme = changes.typeu_theme.newValue;

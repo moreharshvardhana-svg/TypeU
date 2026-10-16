@@ -1,0 +1,91 @@
+body {margin: 0;
+   padding: 20px 24px;
+   width: 140px;
+   text-align: center;
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   background-image:url("menu-light.png");
+  transition: background-image 2s ease-in-out; 
+}
+h1{
+   font-size: 20px;
+}
+.row-container {
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+#toggle_typeU {
+   height: 30px;
+   width: 60px;
+   border-radius: 40px;
+   display: flex;
+   align-items: center;
+   border: 1px solid #777;
+   padding: 2px;transition: all 0.4s ease;
+}
+#button_ball {
+position: absolute;
+   background-color: #ea200a;
+   border-radius: 50%;
+   height: 24px;
+   width: 24px;
+}
+.datamanbtns{
+   padding:5px;
+  background: rgba(255, 255, 255, 0.8);
+   border-radius:40px;
+width:100px;
+   border: 1px solid #777;
+   transition: all 0.4s ease;
+   margin:10px;
+}
+#clearHistory:hover{
+   box-shadow:0 0 40px var(--glow-color, #aaaaaa);   
+}
+#deleteword{
+   width:5px;
+   padding:5px;
+   text-align:center;
+   border-radius:40px;
+   border: 0px solid #777;
+   transition: all 0.25s ease-in,width 0.25s ease-in;
+   transform:translateY(-45px);
+}
+#deleteword.show {
+   width:90px;
+   transition: all 0.25s ease-in,width 0.25s ease-in;
+   transform: translateY(0px);
+}
+#hide-confirmation {
+   overflow: hidden;   
+   height: 50px; 
+   position: relative;
+   margin: -5px 0px -10px;
+}
+#mode{
+   background-color:#1e1e1e;
+   padding:5px;
+   border-radius:40px;
+   border: 1px solid #777;
+   color:#ffffff;
+   transition: all 0.4s ease;
+}
+#mode:hover{
+   box-shadow:0 0 40px #ffffff;
+}
+#deleteconfirmation{
+  display="none";
+}
+#hidecheckbox{
+  margin-top:-5px;
+  margin-bottom:10px;
+  padding:3px;
+   background-color:#acacac;
+   border-radius:20px;
+}

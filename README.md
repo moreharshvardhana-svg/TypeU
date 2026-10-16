@@ -11,14 +11,14 @@
 
 ## Why TypeU?
 
-* 🚀 **Speed Up Repetitive Writing:** Dynamically autocompletes recurring words, common phrases, and code snippets.
-* 🧠 **Learns Exclusively From You:** Starts with minimal seeding and adapts to your personal tone with an asymptotic online sequence model.
-* 📱 **Desktop Parity:** Mobile keyboards shouldn't have all the fun—bring native inline predictions to any webpage (Discord, Google Docs, Reddit, Gemini).
-* 🔒 **100% Private & Client-Side:** No telemetry, no API keys, and no servers. Everything runs entirely in your browser via WebAssembly.
+*  **Speed Up Repetitive Writing:** Dynamically autocompletes recurring words, common phrases, and code snippets.
+*  **Learns Exclusively From You:** Starts with minimal seeding and adapts to your personal tone with an asymptotic online sequence model.
+*  **Desktop Parity:** Mobile keyboards shouldn't have all the fun—bring native inline predictions to any webpage (Discord, Google Docs, Reddit, Gemini).
+*  **100% Private & Client-Side:** No telemetry, no API keys, and no servers. Everything runs entirely in your browser via WebAssembly.
 
 ---
 
-## ⌨️ Controls & Shortcuts
+## Controls & Shortcuts
 
 | Key Combination | Action |
 | :--- | :--- |
@@ -28,13 +28,13 @@
 
 ---
 
-## 🚀 Quick Setup (No Terminal Needed)
+## Quick Setup (No Terminal Needed)
 
 1. **Clone or Download** this repository:
    ```bash
    git clone [https://github.com/moreharshvardhana-svg/TypeU.git](https://github.com/moreharshvardhana-svg/TypeU.git)
    
-### 🚀 Getting Started
+### Getting Started
 
 1. **Open Extensions in Chrome:** Navigate to `chrome://extensions/` (or click `⋮` $\rightarrow$ **Extensions** $\rightarrow$ **Manage Extensions**).
 2. **Enable Developer Mode:** Toggle on **Developer mode** in the top-right corner.
@@ -43,7 +43,7 @@
 
 ---
 
-### 🛠️ Architecture
+### Architecture
 
 * **Core Engine:** Written in modern C++20 featuring a multi-tier N-gram Markov model with asymptotic weight smoothing.
 * **WASM Runtime:** Compiled via Emscripten with zero dynamic execution (`DYNAMIC_EXECUTION=0`) for strict Manifest V3 Content Security Policy compliance.
@@ -51,9 +51,9 @@
 
 ---
 
-### 👨‍💻 Author
+###  Author
 
-Built by **Nightbear**
+Made by **Nightbear**
 
 ---
 
